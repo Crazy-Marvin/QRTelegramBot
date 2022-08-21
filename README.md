@@ -6,7 +6,10 @@
 [![Latest tag](https://img.shields.io/github/tag/Crazy-Marvin/QRTelegramBot.svg?style=flat)](https://github.com/Crazy-Marvin/QRTelegramBot/tags)
 [![Issues](https://img.shields.io/github/issues/Crazy-Marvin/QRTelegramBot.svg?style=flat)](https://github.com/Crazy-Marvin/QRTelegramBot/issues)
 [![Pull requests](https://img.shields.io/github/issues-pr/Crazy-Marvin/QRTelegramBot.svg?style=flat)](https://github.com/Crazy-Marvin/QRTelegramBot//pulls)
+![Snyk Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/Crazy-Marvin/QRTelegramBot)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/09e05ee668004039887bef40e82a15fd)](https://www.codacy.com/gh/Crazy-Marvin/QRTelegramBot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Crazy-Marvin/QRTelegramBot&amp;utm_campaign=Badge_Grade)
+![No Dependencies](https://img.shields.io/badge/Dependencies-None-brightgreenChat)
+[![Telegram QR Code Bot](https://img.shields.io/badge/Python-yellow?logo=python)](https://t.me/QRCodeTelegramBot/)
 
 # QR Code Telegram Bot
 A bot for Telegram that can create and read QR codes.
