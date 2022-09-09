@@ -1,0 +1,8 @@
+numpy
+qrcode
+gspread
+google-auth
+oauth2client
+pyTelegramBotAPI
+google-auth-oauthlib
+opencv-python-headless
