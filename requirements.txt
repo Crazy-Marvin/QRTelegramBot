@@ -7,3 +7,4 @@ pyTelegramBotAPI
 google-auth-oauthlib
 opencv-python-headless
 Flask
+gunicorn
