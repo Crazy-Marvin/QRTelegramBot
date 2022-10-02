@@ -11,9 +11,19 @@ from telebot.types import InputTextMessageContent
 from telebot.types import InlineQueryResultArticle
 
 API_TOKEN = os.getenv("API_TOKEN")
+STORAGE_CHANNEL = os.getenv("STORAGE_CHANNEL")
 
 app = flask.Flask(__name__)
 bot = telebot.TeleBot(API_TOKEN, parse_mode="HTML")
+
+from io import BytesIO
+from qrcode import make
+
+def generate_qr(data):
+    with BytesIO() as qr:
+        qr_data = make(data)
+        qr_data.save(qr, format="PNG")
+        return qr.getvalue()
 
 @app.route('/')
 def index():
@@ -37,6 +47,16 @@ def qrcallback():
 	if isValid:
 		web_app_data = parse_web_app_data(API_TOKEN, initData)
 		query_id = web_app_data["query_id"]
+		
+		data = f"""BEGIN:VEVENT\
+              \nSUMMARY:{summary}\
+              \nLOCATION:{location}\
+              \nDTSTART: {startDate}\
+              \nDTEND:{endDate}\
+              \nDESCRIPTION:{description}\
+              \nEND:VEVENT"""
+
+		bot.send_photo(STORAGE_CHANNEL, generate_qr(data))
 
 		bot.answer_web_app_query(query_id, InlineQueryResultArticle(
 			query_id, "QR Code Scanner", InputTextMessageContent(
