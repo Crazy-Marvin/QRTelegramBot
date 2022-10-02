@@ -5,10 +5,7 @@ from flask import request
 import telebot
 from telebot.util import parse_web_app_data
 from telebot.util import validate_web_app_data
-from telebot.types import InlineKeyboardMarkup
-from telebot.types import InlineKeyboardButton
-from telebot.types import InputTextMessageContent
-from telebot.types import InlineQueryResultArticle
+from telebot.types import InlineQueryResultCachedPhoto
 
 API_TOKEN = os.getenv("API_TOKEN")
 STORAGE_CHANNEL = os.getenv("STORAGE_CHANNEL")
@@ -56,15 +53,12 @@ def qrcallback():
               \nDESCRIPTION:{description}\
               \nEND:VEVENT"""
 
-		bot.send_photo(STORAGE_CHANNEL, generate_qr(data))
+		photo = bot.send_photo(STORAGE_CHANNEL, generate_qr(data))
+		file_id = bot.get_file(photo.photo[-1].file_id).file_id
 
-		bot.answer_web_app_query(query_id, InlineQueryResultArticle(
-			query_id, "QR Code Scanner", InputTextMessageContent(
-				f'<b><i>Data Received:\n\nSummary ➜ {summary}\n\
-					\nLocation ➜ {location}\n\nStartDate ➜ {startDate}\n\
-					\nEndDate ➜ {endDate}\n\nDescription ➜ {description}</i></b>',
-					parse_mode="HTML"), reply_markup=InlineKeyboardMarkup().row(
-					InlineKeyboardButton("GENERATE EVENT QR CODE", callback_data="event-callbacks"))))
+		bot.answer_web_app_query(query_id, InlineQueryResultCachedPhoto(query_id, file_id))
+
+	return "200"
 
 if __name__ == '__main__':
     app.run()
