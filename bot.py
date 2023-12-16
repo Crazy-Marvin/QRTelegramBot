@@ -26,6 +26,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 API_TOKEN = os.getenv("API_KEY")
 STORAGE_CHANNEL = os.getenv("STORAGE_CHANNEL")
+WEB_APP_URL = "https://telegramqrcodetelegrambot.herokuapp.com/"
 
 scope = [
     "https://spreadsheets.google.com/feeds",
@@ -67,8 +68,7 @@ def read(message):
     bot.send_message(message.chat.id,
         "<b>To read a QR Code, simply send the image containing the QR Code!\n\
         \nNOTE: Send good resolution images for better results 😄\n\
-        \nYou can also scan QR Codes live using the button below 👇🏻\n\
-        \n[Live QR Scanner is still in development]</b>",
+        \nYou can also scan QR Codes live using the button below 👇🏻</b>",
         reply_markup=InlineKeyboardMarkup().row(InlineKeyboardButton(
             "SCAN NOW 🔍", callback_data="web_app")))
 
@@ -281,15 +281,9 @@ def callback_listener(call):
 
     elif data == "event":
         bot.delete_message(chat_id, msg_id)
-        response = bot.send_message(chat_id,
-            "<b>Send the Event details as shown below 👉🏻\n\
-            \n<code>Title::Location::Start::End::Description</code>\n\
-            \n➤ Title - Title of the event\n\
-            \n➤ Location - Location of the event\n\
-            \n➤ Start - Start of the event [YYYYMMDD]\n\
-            \n➤ End - End of the event [YYYYMMDD]\n\
-            \n➤ Description - Event description</b>")
-        bot.register_next_step_handler(response, analyze_qr, "event")              
+        bot.send_message(chat_id, "Use this Web App to create a QR Code for an Event", 
+            reply_markup=InlineKeyboardMarkup().row(InlineKeyboardButton("GENERATE QR CODE",
+                web_app=WebAppInfo(WEB_APP_URL))))
 
     elif data == "contact":
         bot.delete_message(chat_id, msg_id)
@@ -316,6 +310,9 @@ def callback_listener(call):
         bot.register_next_step_handler(response, analyze_qr, "wifi")
 
     elif data == "web_app":
-        bot.answer_callback_query(call.id, "Still in development! ⏳", show_alert=True)
+        bot.delete_message(chat_id, msg_id)
+        bot.send_message(chat_id, "Scan QR Codes Live 👇🏻", 
+            reply_markup=InlineKeyboardMarkup().row(InlineKeyboardButton("SCAN NOW 🔍",
+                web_app=WebAppInfo(WEB_APP_URL + "qrCode"))))
 
 bot.infinity_polling(skip_pending=True)
