@@ -283,7 +283,7 @@ def callback_listener(call):
         bot.delete_message(chat_id, msg_id)
         bot.send_message(chat_id, "Use this Web App to create a QR Code for an Event", 
             reply_markup=InlineKeyboardMarkup().row(InlineKeyboardButton("GENERATE QR CODE",
-                web_app=WebAppInfo(WEB_APP_URL))))
+                web_app=WebAppInfo(WEB_APP_URL + "qrCodeEvent"))))
 
     elif data == "contact":
         bot.delete_message(chat_id, msg_id)
@@ -314,5 +314,5 @@ def callback_listener(call):
         bot.send_message(chat_id, "Scan QR Codes Live 👇🏻", 
             reply_markup=InlineKeyboardMarkup().row(InlineKeyboardButton("SCAN NOW 🔍",
                 web_app=WebAppInfo(WEB_APP_URL + "qrCode"))))
-
+        
 bot.infinity_polling(skip_pending=True)
