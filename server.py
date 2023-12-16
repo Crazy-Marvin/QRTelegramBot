@@ -13,7 +13,7 @@ from telebot.types import InlineQueryResultCachedPhoto
 API_TOKEN = os.getenv("API_TOKEN")
 STORAGE_CHANNEL = os.getenv("STORAGE_CHANNEL")
 
-app = flask.Flask(__name__, static_url_path="static")
+app = flask.Flask(__name__, static_url_path="/static")
 bot = telebot.TeleBot(API_TOKEN, parse_mode="HTML")
 
 from io import BytesIO
