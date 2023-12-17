@@ -14,7 +14,7 @@
 # QR Code Telegram Bot
 A bot for Telegram that can create and read QR codes.
 
-__TO DO: insert .gif__
+![QRTelegramBot](https://github.com/Crazy-Marvin/QRTelegramBot/assets/15004217/79863008-4ea5-47c1-9f68-fab6c348ce8d)
 
 ### Requirements
 
